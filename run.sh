@@ -10,6 +10,7 @@ URL=https://github.com/ElementsProject/lightning.git
 {
 
 date
+cat /etc/os-release
 rm -rf lightning
 git clone $URL
 cd lightning
