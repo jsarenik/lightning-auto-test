@@ -13,6 +13,7 @@ date
 rm -rf lightning
 git clone $URL
 cd lightning
+git rev-parse HEAD
 ./configure --disable-developer --disable-valgrind
 make -j4
 make check
