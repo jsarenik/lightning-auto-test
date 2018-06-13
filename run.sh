@@ -19,7 +19,7 @@ cd lightning
 git rev-parse HEAD
 ./configure --disable-developer --disable-valgrind
 make -j4
-make check
+make TIMEOUT=120 check
 make check-source
 
 } 2>&1 | tee log
