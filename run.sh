@@ -11,6 +11,8 @@ URL=https://github.com/ElementsProject/lightning.git
 
 date
 cat /etc/os-release
+bitcoind --version
+pip3 freeze --local
 rm -rf lightning
 git clone $URL
 cd lightning
