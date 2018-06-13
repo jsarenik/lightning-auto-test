@@ -15,6 +15,7 @@ bitcoind --version
 pip3 freeze --local
 rm -rf lightning
 git clone $URL
+git clone https://github.com/lightningnetwork/lightning-rfc
 cd lightning
 git rev-parse HEAD
 ./configure --disable-developer --disable-valgrind
