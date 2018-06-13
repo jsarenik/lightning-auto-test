@@ -1,0 +1,5 @@
+cd
+cd lightning-auto-test-ubuntu
+pwd
+cp /tmp/run.sh ./
+./run.sh
