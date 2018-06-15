@@ -10,6 +10,8 @@ URL=https://github.com/ElementsProject/lightning.git
 {
 
 date
+uname -r
+uname -v
 cat /etc/os-release
 bitcoind --version
 pip3 freeze --local
