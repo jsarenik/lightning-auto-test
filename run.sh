@@ -32,6 +32,7 @@ git rev-parse HEAD
 time -p make -j4
 time -p make TIMEOUT=120 check
 cppcheck --version
+shellcheck --version
 make check-source
 
 } 2>&1 | tee log
