@@ -33,16 +33,16 @@ date
 uname -r
 uname -v
 cat /etc/os-release
-bitcoind --version
 myclone $URL
 rm -rf lightning-rfc
 #myclone https://github.com/lightningnetwork/lightning-rfc
 cd lightning
-pip3 install -r tests/requirements.txt
-pip3 freeze --local
 git rev-parse HEAD
 ./configure --disable-developer --disable-valgrind
 time -p make -j4
+bitcoind --version
+pip3 install -r tests/requirements.txt
+pip3 freeze --local
 time -p make TIMEOUT=120 check
 cppcheck --version
 shellcheck --version
