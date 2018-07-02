@@ -21,15 +21,16 @@ uname -r
 uname -v
 cat /etc/os-release
 bitcoind --version
-pip3 freeze --local
 myclone $URL
 rm -rf lightning-rfc
 #myclone https://github.com/lightningnetwork/lightning-rfc
 cd lightning
+pip3 install -r tests/requirements.txt
+pip3 freeze --local
 git rev-parse HEAD
 ./configure --disable-developer --disable-valgrind
-make -j4
-make TIMEOUT=120 check
+time -p make -j4
+time -p make TIMEOUT=120 check
 cppcheck --version
 make check-source
 
