@@ -14,7 +14,20 @@ myclone() {
 	git clone $1
 }
 
+armrandom() {
+	myarch=$(uname -m)
+	test "$myarch" = "armv7l" && {
+		mv /dev/random /dev/random-old
+		ln -s urandom /dev/random
+		echo 1
+		return
+	}
+}
+
 {
+
+unset ARMRANDOM
+ARMRANDOM=$(armrandom)
 
 date
 uname -r
@@ -34,5 +47,10 @@ time -p make TIMEOUT=120 check
 cppcheck --version
 shellcheck --version
 make check-source
+
+test -n "$ARMRANDOM" && {
+	rm /dev/random
+	mv /dev/random-old /dev/random
+}
 
 } 2>&1 | tee log
