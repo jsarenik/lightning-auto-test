@@ -20,14 +20,14 @@ armrandom() {
 		mv /dev/random /dev/random-old
 		ln -s urandom /dev/random
 		echo 1
-		return
 	}
+	return 0
 }
 
 {
 
 unset ARMRANDOM
-ARMRANDOM=$(armrandom)
+ARMRANDOM=$(armrandom) || true
 
 date
 uname -r
