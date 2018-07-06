@@ -28,6 +28,7 @@ unset ARMRANDOM
 ARMRANDOM=$(armrandom) || true
 
 date
+git rev-parse HEAD
 uname -r
 uname -v
 cat /etc/os-release
