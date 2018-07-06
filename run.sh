@@ -2,8 +2,6 @@
 
 set -xe
 export TZ=UTC
-export LC_ALL=C
-export LANG=C
 URL=https://github.com/ElementsProject/lightning.git
 #"https://github.com/jsarenik/lightning -b jasan/libwally_update_2"
 
@@ -38,12 +36,20 @@ rm -rf lightning-rfc
 #myclone https://github.com/lightningnetwork/lightning-rfc
 cd lightning
 git rev-parse HEAD
-./configure --disable-developer --disable-valgrind
+
+pip3 install --user pipenv
+export PATH=$PATH:$HOME/.local/bin
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+pipenv install
+pipenv run pip install -r tests/requirements.txt
+
+pipenv run ./configure --disable-developer --disable-valgrind
 time -p make -j4
 bitcoind --version
 pip3 install -r tests/requirements.txt
 pip3 freeze --local
-time -p make TIMEOUT=120 check
+time -p pipenv run make TIMEOUT=120 check
 cppcheck --version
 shellcheck --version
 make check-source
