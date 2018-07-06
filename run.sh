@@ -47,8 +47,7 @@ pipenv run pip install -r tests/requirements.txt
 pipenv run ./configure --disable-developer --disable-valgrind
 time -p make -j4
 bitcoind --version
-pip3 install -r tests/requirements.txt
-pip3 freeze --local
+pipenv run pip3 freeze --local
 time -p pipenv run make TIMEOUT=120 check
 cppcheck --version
 shellcheck --version
