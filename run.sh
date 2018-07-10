@@ -39,6 +39,9 @@ armrandom() {
 unset ARMRANDOM
 ARMRANDOM=$(armrandom) || true
 
+PYTHON3=$(which python3)
+echo python3 is $PYTHON3
+type time
 date
 git rev-parse HEAD
 uname -r
@@ -50,18 +53,20 @@ rm -rf lightning-rfc
 cd lightning
 git rev-parse HEAD
 
-pip3 install --user pipenv
-export PATH=$PATH:$HOME/.local/bin
+pip3 install --user virtualenv
+export PATH=$HOME/.local/bin:$PATH
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
-pipenv install
-pipenv run pip install -r tests/requirements.txt
+virtualenv -p $PYTHON3 ../virtualenv
+source ../virtualenv/bin/activate
+pip install --upgrade pip
+pip install -r tests/requirements.txt
 
-pipenv run ./configure --disable-developer --disable-valgrind
+./configure --disable-developer --disable-valgrind
 time -p make -j4
 bitcoind --version
-pipenv run pip3 freeze --local
-time -p pipenv run make TIMEOUT=120 check
+pip3 freeze --local
+time -p make TIMEOUT=120 check
 cppcheck --version
 shellcheck --version
 make check-source
