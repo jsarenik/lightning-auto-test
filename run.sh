@@ -12,7 +12,8 @@ myclone() {
 		test -d $dir
 	then
 		cd $dir
-		git stash -a
+		git add -A
+		git stash
 		git fetch --all --prune
 		git checkout master
 		git clean -xfd
