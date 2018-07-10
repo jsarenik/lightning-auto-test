@@ -8,8 +8,20 @@ URL=https://github.com/ElementsProject/lightning.git
 myclone() {
 	dir=${1##*/}
 	dir=${dir%%.git}
-	rm -rf $dir
-	git clone $1
+	if
+		test -d $dir
+	then
+		cd $dir
+		git stash -a
+		git fetch --all --prune
+		git checkout master
+		git clean -xfd
+		git submodule deinit --all --force
+		git pull
+		cd -
+	else
+		git clone $1
+	fi
 }
 
 armrandom() {
