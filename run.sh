@@ -2,10 +2,13 @@
 
 set -xe
 export TZ=UTC
-URL=https://github.com/ElementsProject/lightning.git
-#"https://github.com/jsarenik/lightning -b jasan/libwally_update_2"
+URL=${1:-"https://github.com/ElementsProject/lightning.git"}
+BRANCH=${2:-"master"}
 
 myclone() {
+	myurl=${1}
+	test -n "$myurl"
+	mybranch=${2:-"master"}
 	dir=${1##*/}
 	dir=${dir%%.git}
 	if
@@ -14,14 +17,19 @@ myclone() {
 		cd $dir
 		git add -A
 		git stash
+		git remote -v show | grep origin | grep -q $URL || {
+			git remote rm origin
+			git remote add origin $URL
+		}
 		git fetch --all --prune
-		git checkout master
+		git checkout $mybranch
 		git clean -xfd
 		git submodule deinit --all --force
+		git branch --set-upstream-to=origin/$mybranch
 		git pull
 		cd -
 	else
-		git clone $1
+		git clone $myurl -b $mybranch
 	fi
 }
 
@@ -51,11 +59,12 @@ type time pip3 bitcoind cppcheck shellcheck
 uname -srm
 uname -v
 cat /etc/os-release
-rm -rf lightning
-URL="https://github.com/wythe/lightning -b fix-param-arg-size"
-myclone $URL
-rm -rf lightning-rfc
-#myclone https://github.com/lightningnetwork/lightning-rfc
+myclone $URL $BRANCH
+
+# Make sure to remove lightning-rfc for now
+	rm -rf lightning-rfc
+	#myclone https://github.com/lightningnetwork/lightning-rfc
+
 cd lightning
 pwd
 git rev-parse HEAD
@@ -70,7 +79,8 @@ pip install --upgrade pip
 pip install -r tests/requirements.txt
 
 ./configure --enable-developer --disable-valgrind
-time -p make -j4
+NUMCORES=$(grep -c ^processor /proc/cpuinfo)
+time -p make -j$NUMCORES
 bitcoind --version
 pip3 freeze --local
 time -p make TIMEOUT=120 check
