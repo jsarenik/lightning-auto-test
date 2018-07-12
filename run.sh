@@ -69,6 +69,7 @@ pip3 freeze --local
 time -p make TIMEOUT=120 check
 cppcheck --version
 shellcheck --version
+pip3 install flake8
 make check-source
 
 test -n "$ARMRANDOM" && {
