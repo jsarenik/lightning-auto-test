@@ -42,7 +42,7 @@ ARMRANDOM=$(armrandom) || true
 
 PYTHON3=$(which python3)
 echo python3 is $PYTHON3
-type time pip3
+type time pip3 bitcoind
 date
 git rev-parse HEAD
 uname -r
