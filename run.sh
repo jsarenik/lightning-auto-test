@@ -37,15 +37,17 @@ armrandom() {
 
 {
 
+date
+
+: This is https://github.com/jsarenik/lightning-auto-test
+pwd
+git rev-parse --short HEAD
+
 unset ARMRANDOM
 ARMRANDOM=$(armrandom) || true
 
 PYTHON3=$(which python3)
 type time pip3 bitcoind cppcheck shellcheck
-date
-pwd
-: following is lightning-auto-test commit used
-git rev-parse --short HEAD
 uname -srm
 uname -v
 cat /etc/os-release
