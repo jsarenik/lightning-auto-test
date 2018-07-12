@@ -41,7 +41,7 @@ unset ARMRANDOM
 ARMRANDOM=$(armrandom) || true
 
 PYTHON3=$(which python3)
-type time pip3 bitcoind
+type time pip3 bitcoind cppcheck
 date
 git rev-parse HEAD
 uname -srm
