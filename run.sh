@@ -44,7 +44,7 @@ PYTHON3=$(which python3)
 type time pip3 bitcoind
 date
 git rev-parse HEAD
-uname -r
+uname -srm
 uname -v
 cat /etc/os-release
 myclone $URL
