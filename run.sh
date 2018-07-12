@@ -43,14 +43,19 @@ ARMRANDOM=$(armrandom) || true
 PYTHON3=$(which python3)
 type time pip3 bitcoind cppcheck shellcheck
 date
-git rev-parse HEAD
+pwd
+: following is lightning-auto-test commit used
+git rev-parse --short HEAD
 uname -srm
 uname -v
 cat /etc/os-release
+rm -rf lightning
+URL="https://github.com/wythe/lightning -b fix-param-arg-size"
 myclone $URL
 rm -rf lightning-rfc
 #myclone https://github.com/lightningnetwork/lightning-rfc
 cd lightning
+pwd
 git rev-parse HEAD
 
 pip3 install --user virtualenv
