@@ -63,7 +63,7 @@ source ../virtualenv/bin/activate
 pip install --upgrade pip
 pip install -r tests/requirements.txt
 
-./configure --disable-developer --disable-valgrind
+./configure --enable-developer --disable-valgrind
 time -p make -j4
 bitcoind --version
 pip3 freeze --local
