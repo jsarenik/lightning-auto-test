@@ -67,7 +67,7 @@ myclone $URL $BRANCH
 
 cd lightning
 pwd
-git rev-parse HEAD
+LIGHTNING_REV=$(git rev-parse HEAD)
 
 pip3 install --user virtualenv
 export PATH=$HOME/.local/bin:$PATH
@@ -95,3 +95,9 @@ test -n "$ARMRANDOM" && {
 }
 
 } 2>&1 | tee log
+
+unset ADD=0
+while test -r ${LIGHTNING_REV}-${ADD}.log
+do ADD=$((ADD+1)); done
+echo Moving log to ${LIGHTNING_REV}-${ADD}.log
+mv log ${LIGHTNING_REV}-${ADD}.log
