@@ -74,7 +74,9 @@ export PATH=$HOME/.local/bin:$PATH
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 virtualenv -p $PYTHON3 ../virtualenv
+set +x
 . ../virtualenv/bin/activate
+set -x
 pip install --upgrade pip
 pip install -r tests/requirements.txt
 
