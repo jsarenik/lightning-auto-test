@@ -1,9 +1,24 @@
 #!/bin/sh
 
+a="/$0"; a=${a%/*}; a=${a:-.}; a=${a#/}/; BINDIR=$(cd $a; pwd)
+
 set -xe
 export TZ=UTC
 URL=${1:-"https://github.com/ElementsProject/lightning.git"}
 BRANCH=${2:-"master"}
+
+renamelog() {
+	set +e
+	REV=$(grep LIGHTNING_REV $BINDIR/log | cut -d= -f2)
+	REV=${REV:-"early_log"}
+	ADD=0
+	cd $BINDIR
+	while test -r ${REV}-${ADD}.log
+	do ADD=$((ADD+1)); done
+	mv log ${REV}-${ADD}.log
+	exit 0
+}
+trap "renamelog" INT QUIT
 
 myclone() {
 	myurl=${1}
@@ -96,10 +111,4 @@ test -n "$ARMRANDOM" && {
 	mv /dev/random-old /dev/random
 }
 
-} 2>&1 | tee log
-
-unset ADD=0
-while test -r ${LIGHTNING_REV}-${ADD}.log
-do ADD=$((ADD+1)); done
-echo Moving log to ${LIGHTNING_REV}-${ADD}.log
-mv log ${LIGHTNING_REV}-${ADD}.log
+} 2>&1 | tee $BINDIR/log
