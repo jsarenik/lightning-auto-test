@@ -67,7 +67,7 @@ myclone $URL $BRANCH
 
 cd lightning
 pwd
-LIGHTNING_REV=$(git rev-parse HEAD)
+LIGHTNING_REV=$(git rev-parse --short HEAD)
 
 pip3 install --user virtualenv
 export PATH=$HOME/.local/bin:$PATH
