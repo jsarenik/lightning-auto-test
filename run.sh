@@ -95,7 +95,9 @@ set -x
 pip install --upgrade pip
 pip install -r tests/requirements.txt
 
-./configure --enable-developer --disable-valgrind
+export DEVELOPER=${DEVELOPER:-1}
+export VALGRIND=${VALGRIND:-0}
+./configure
 NUMCORES=$(grep -c ^processor /proc/cpuinfo)
 time -p make -j$NUMCORES
 bitcoind --version
