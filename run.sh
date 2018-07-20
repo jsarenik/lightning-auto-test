@@ -70,7 +70,7 @@ unset ARMRANDOM
 ARMRANDOM=$(armrandom) || true
 
 PYTHON3=$(which python3)
-type time pip3 bitcoind cppcheck shellcheck
+type time pip3 bitcoind bitcoin-cli cppcheck shellcheck
 uname -srm
 uname -v
 cat /etc/os-release

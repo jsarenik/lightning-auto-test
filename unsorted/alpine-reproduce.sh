@@ -27,7 +27,7 @@ sudo chmod a+rx alpine
 cat >$MYCH/alpine/var/tmp/script <<EOF
 apk update
 apk upgrade
-apk add git bitcoin libtool autoconf automake build-base python3-dev gmp-dev sqlite-dev zlib-dev cppcheck
+apk add git bitcoin bitcoin-cli libtool autoconf automake build-base python3-dev gmp-dev sqlite-dev zlib-dev cppcheck
 #apk add db-c++ db boost db-dev boost-dev libressl-dev libevent-dev
 cat > /usr/local/bin/shellcheck << EOOOF
 #!/bin/sh
