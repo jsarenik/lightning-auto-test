@@ -30,10 +30,10 @@ apk update
 apk upgrade
 apk add git bitcoin bitcoin-cli libtool autoconf automake build-base python3-dev gmp-dev sqlite-dev zlib-dev cppcheck
 #apk add db-c++ db boost db-dev boost-dev libressl-dev libevent-dev
-cat > /usr/local/bin/shellcheck << EOOOF
-#!/bin/sh
-true
-EOOOF
+cat > /usr/local/bin/shellcheck <<-EOOOF
+	#!/bin/sh
+	true
+	EOOOF
 chmod a+x /usr/local/bin/shellcheck
 git clone https://github.com/jsarenik/lightning-auto-test
 cd lightning-auto-test
