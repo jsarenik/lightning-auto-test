@@ -37,7 +37,7 @@ cat > /usr/local/bin/shellcheck <<-EOOOF
 chmod a+x /usr/local/bin/shellcheck
 git clone https://github.com/jsarenik/lightning-auto-test
 cd lightning-auto-test
-export DEVELOPER=0
+export DEVELOPER=1
 ./run.sh
 EOF
 
