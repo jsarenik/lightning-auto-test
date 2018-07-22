@@ -8,20 +8,21 @@ type sudo tar wget
 AMAC=x86_64
 AVER=3.8.0
 AURL="http://dl-cdn.alpinelinux.org/alpine/v${AVER%.*}/releases"
+CHSYS="https://raw.githubusercontent.com/jsarenik/dotfiles/master/bin/chsys"
 ALPINE="$AURL/$AMAC/alpine-minirootfs-$AVER-$AMAC.tar.gz"
 
 MYCH=$HOME/chsys
-mkdir $MYCH && cd $MYCH || exit 1
-wget $ALPINE
-wget https://raw.githubusercontent.com/jsarenik/dotfiles/master/bin/chsys
-chmod a+x chsys
+cd $MYCH || {
+	mkdir $MYCH
+	wget $ALPINE
+	wget $CHSYS
+	chmod a+x chsys
 
-# Extract Alpine root
-mkdir alpine
-cd alpine
-sudo tar xf ../${ALPINE##*/}
-cd ..
-sudo chmod a+rx alpine
+	# Extract Alpine root
+	mkdir alpine
+	sudo tar -xf ../${ALPINE##*/} -C alpine
+	sudo chmod a+rx alpine
+}
 
 # Script that is run inside chroot
 cat >$MYCH/alpine/var/tmp/script <<EOF
