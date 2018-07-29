@@ -1,4 +1,5 @@
 lightning/
+lightning-rfc/
 log
 virtualenv/
 *.log
