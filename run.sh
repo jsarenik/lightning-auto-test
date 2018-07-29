@@ -32,9 +32,9 @@ myclone() {
 		cd $dir
 		git add -A
 		git stash
-		git remote -v show | grep origin | grep -q $URL || {
+		git remote -v show | grep origin | grep -q $myurl || {
 			git remote rm origin
-			git remote add origin $URL
+			git remote add origin $myurl
 		}
 		git fetch --all --prune
 		git checkout $mybranch
