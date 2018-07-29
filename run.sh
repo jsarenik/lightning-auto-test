@@ -75,10 +75,7 @@ uname -srm
 uname -v
 cat /etc/os-release
 myclone $URL $BRANCH
-
-# Make sure to remove lightning-rfc for now
-	rm -rf lightning-rfc
-	#myclone https://github.com/lightningnetwork/lightning-rfc
+myclone https://github.com/lightningnetwork/lightning-rfc
 
 cd lightning
 pwd
