@@ -111,3 +111,4 @@ test -n "$ARMRANDOM" && {
 }
 
 } 2>&1 | tee $BINDIR/log
+renamelog
