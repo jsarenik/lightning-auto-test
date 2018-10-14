@@ -30,18 +30,20 @@ myclone() {
 		test -d $dir
 	then
 		cd $dir
-		git add -A
-		git stash
+		git status -s | grep . && {
+			git add -A
+			git stash
+		}
 		git remote -v show | grep origin | grep -q $myurl || {
 			git remote rm origin
 			git remote add origin $myurl
 		}
 		git fetch --all --prune
 		git checkout $mybranch
+		git branch --set-upstream-to=origin/$mybranch
+		git reset --hard origin/$mybranch
 		git clean -xfd
 		git submodule deinit --all --force
-		git branch --set-upstream-to=origin/$mybranch
-		git pull
 		cd -
 	else
 		git clone $myurl -b $mybranch
