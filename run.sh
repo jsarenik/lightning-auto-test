@@ -6,6 +6,7 @@ set -xe
 export TZ=UTC
 URL=${1:-"https://github.com/ElementsProject/lightning.git"}
 BRANCH=${2:-"master"}
+RET=1
 
 renamelog() {
 	set +e
@@ -16,7 +17,7 @@ renamelog() {
 	while test -r ${REV}-${ADD}.log
 	do ADD=$((ADD+1)); done
 	mv log ${REV}-${ADD}.log
-	exit 0
+	exit $RET
 }
 trap "renamelog" INT QUIT
 
@@ -113,6 +114,8 @@ cppcheck --version
 shellcheck --version
 pip3 install flake8
 make check-source
+RET=$?
+: Exited with $RET
 
 test -n "$ARMRANDOM" && {
 	rm /dev/random
