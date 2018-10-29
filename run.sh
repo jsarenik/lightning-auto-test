@@ -42,7 +42,7 @@ myclone() {
 		git checkout $mybranch
 		git branch --set-upstream-to=origin/$mybranch
 		git reset --hard origin/$mybranch
-		git clean -xfd
+		git clean -xffd
 		git submodule deinit --all --force
 		cd -
 	else
