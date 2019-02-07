@@ -105,9 +105,12 @@ test -r $VENV/venv-installation-part2 || {
 
 export DEVELOPER=${DEVELOPER:-1}
 export VALGRIND=${VALGRIND:-0}
+#export CFLAGS="-Os -s -pipe"
+#export LDFLAGS="-static -no-pie"
 ./configure
 NUMCORES=$(grep -c ^processor /proc/cpuinfo)
-time -p make -j$NUMCORES
+#time -p make -j$NUMCORES CFLAGS="-Os -s -pipe" LDFLAGS='-no-pie -static'
+time -p make -j$NUMCORES LDFLAGS='-no-pie -static'
 bitcoind --version
 pip3 freeze --local
 time -p make TIMEOUT=120 check
