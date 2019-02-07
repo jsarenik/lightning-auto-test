@@ -31,6 +31,7 @@ myclone() {
 		test -d $dir
 	then
 		cd $dir
+		rm -rf .tmp.lightningrfc
 		git status -s | grep . && {
 			git add -A
 			git stash
