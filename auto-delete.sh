@@ -8,7 +8,7 @@ while true
 
   DIR=$(head -1 /tmp/olddirs)
   test -n "$DIR" || exit 1
-  cd $DIR
+  cd "$DIR"
   exit 0
   ls -t > /tmp/oldtests
   wc -l /tmp/oldtests | while read n rest
