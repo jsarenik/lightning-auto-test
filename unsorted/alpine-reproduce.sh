@@ -6,21 +6,22 @@ type sudo tar wget
 # see https://alpinelinux.org/downloads/ for more architectures,
 # the rest are scripts and should work on all architectures
 AMAC=x86_64
-AVER=3.8.0
+AVER=3.9.0
 AURL="http://dl-cdn.alpinelinux.org/alpine/v${AVER%.*}/releases"
 CHSYS="https://raw.githubusercontent.com/jsarenik/dotfiles/master/bin/chsys"
 ALPINE="$AURL/$AMAC/alpine-minirootfs-$AVER-$AMAC.tar.gz"
 
 MYCH=$HOME/chsys
 cd $MYCH || {
-	mkdir $MYCH
+	mkdir -p $MYCH/var/tmp/
+	cd $MYCH
 	wget $ALPINE
 	wget $CHSYS
 	chmod a+x chsys
 
 	# Extract Alpine root
 	mkdir alpine
-	sudo tar -xf ../${ALPINE##*/} -C alpine
+	sudo tar -xf ${ALPINE##*/} -C alpine
 	sudo chmod a+rx alpine
 }
 
