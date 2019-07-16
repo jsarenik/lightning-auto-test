@@ -2,9 +2,11 @@
 
 while true
   cd /tmp
-  do ls -dt ltests-* | tee /tmp/olddirs | sed 2d | while read a
+  DIRS=$(ls -dt ltests-*) || exit 1
+  do echo $DIRS | tee /tmp/olddirs | sed 2d | while read a
     do rm -rv $a
-  done || exit 1
+  done
+  test -s /tmp/olddirs || continue
 
   DIR=$(head -1 /tmp/olddirs)
   test -n "$DIR" || exit 1
