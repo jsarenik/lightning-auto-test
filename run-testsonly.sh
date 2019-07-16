@@ -22,16 +22,6 @@ trap "renamelog" INT QUIT
 
 mybranch=${1:-"master"}
 
-armrandom() {
-	myarch=$(uname -m)
-	test "$myarch" = "armv7l" && {
-		mv /dev/random /dev/random-old
-		ln -s urandom /dev/random
-		echo 1
-	}
-	return 0
-}
-
 {
 
 date
@@ -39,9 +29,6 @@ date
 : This is https://github.com/jsarenik/lightning-auto-test run-manual.sh
 pwd
 git rev-parse --short HEAD
-
-unset ARMRANDOM
-ARMRANDOM=$(armrandom) || true
 
 PYTHON3=$(which python3)
 type time pip3 bitcoind bitcoin-cli cppcheck shellcheck
@@ -82,11 +69,6 @@ pip3 install flake8
 make check-source
 RET=$?
 : Exited with $RET
-
-test -n "$ARMRANDOM" && {
-	rm /dev/random
-	mv /dev/random-old /dev/random
-}
 
 } 2>&1 | tee $BINDIR/log
 renamelog

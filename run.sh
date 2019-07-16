@@ -52,14 +52,13 @@ myclone() {
 	fi
 }
 
-armrandom() {
-	myarch=$(uname -m)
-	test "$myarch" = "armv7l" && {
-		mv /dev/random /dev/random-old
+UHD=/dev/urandomhack-old
+urandomhack() {
+	test -r $UHD || {
+		mv /dev/random $UHD
 		ln -s urandom /dev/random
-		echo 1
+		return 0
 	}
-	return 0
 }
 
 {
@@ -70,8 +69,7 @@ date
 pwd
 git rev-parse --short HEAD
 
-unset ARMRANDOM
-ARMRANDOM=$(armrandom) || true
+#urandomhack || true
 
 PYTHON3=$(which python3)
 type time pip3 bitcoind bitcoin-cli cppcheck shellcheck
@@ -119,9 +117,9 @@ make check-source
 RET=$?
 : Exited with $RET
 
-test -n "$ARMRANDOM" && {
+test -t $UHD && {
 	rm /dev/random
-	mv /dev/random-old /dev/random
+	mv $UHD /dev/random
 }
 
 } 2>&1 | tee $BINDIR/log
