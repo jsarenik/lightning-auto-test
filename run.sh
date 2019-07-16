@@ -100,6 +100,7 @@ set -x
 test -r $VENV/venv-installation-part2 || {
 	pip install --upgrade pip
 	pip install -r tests/requirements.txt
+	pip install mako
 	touch $VENV/venv-installation-part2
 }
 
