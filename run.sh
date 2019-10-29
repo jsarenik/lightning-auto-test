@@ -60,7 +60,8 @@ date
 pwd
 git rev-parse --short HEAD
 
-type python3 time pip3 bitcoind bitcoin-cli cppcheck shellcheck gettext
+type python3 time pip3 bitcoind bitcoin-cli cppcheck \
+  shellcheck gettext pg_config
 uname -srm
 uname -v
 cat /etc/os-release || true
