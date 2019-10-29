@@ -52,15 +52,6 @@ myclone() {
 	fi
 }
 
-UHD=/dev/urandomhack-old
-urandomhack() {
-	test -r $UHD || {
-		mv /dev/random $UHD
-		ln -s urandom /dev/random
-		return 0
-	}
-}
-
 {
 
 date
@@ -68,8 +59,6 @@ date
 : This is https://github.com/jsarenik/lightning-auto-test
 pwd
 git rev-parse --short HEAD
-
-#urandomhack || true
 
 type python3 time pip3 bitcoind bitcoin-cli cppcheck shellcheck
 uname -srm
@@ -98,11 +87,6 @@ pip3 install flake8
 make check-source
 RET=$?
 : Exited with $RET
-
-test -t $UHD && {
-	rm /dev/random
-	mv $UHD /dev/random
-}
 
 } 2>&1 | tee $BINDIR/log
 renamelog
