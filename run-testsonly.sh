@@ -43,19 +43,7 @@ VENV=../virtualenv
 export PATH=$HOME/.local/bin:$PATH
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
-test -r $VENV/venv-installation-part1 || {
-	pip3 install --user virtualenv
-	virtualenv -p $PYTHON3 $VENV
-	touch $VENV/venv-installation-part1
-}
-set +x
-. $VENV/bin/activate
-set -x
-test -r $VENV/venv-installation-part2 || {
-	pip install --upgrade pip
-	pip install -r tests/requirements.txt
-	touch $VENV/venv-installation-part2
-}
+$BINDIR/enter-venv.sh
 
 export DEVELOPER=${DEVELOPER:-1}
 export VALGRIND=${VALGRIND:-0}

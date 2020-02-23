@@ -31,7 +31,9 @@ set +x
 set -x
 test -r $VENV/venv-installation-part2 || {
 	pip install --upgrade pip
-	pip install -r tests/requirements.txt
+	test -r tests/requirements.txt \
+	  && pip install -r tests/requirements.txt \
+	  || pip install -r requirements.txt
 	touch $VENV/venv-installation-part2
 }
 
