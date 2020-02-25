@@ -48,8 +48,8 @@ LIGHTNING_REV=$(git rev-parse --short HEAD)
 
 VENV=../virtualenv
 export PATH=$HOME/.local/bin:$PATH
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
+unset LC_ALL
+unset LANG
 test -r $VENV/venv-installation-part1 || {
 	pip3 install --user virtualenv
 	virtualenv -p $PYTHON3 $VENV

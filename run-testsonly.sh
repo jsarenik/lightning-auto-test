@@ -41,8 +41,8 @@ LIGHTNING_REV=$(git rev-parse --short HEAD)
 
 VENV=../virtualenv
 export PATH=$HOME/.local/bin:$PATH
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
+unset LC_ALL
+unset LANG
 $BINDIR/enter-venv.sh
 
 export DEVELOPER=${DEVELOPER:-1}
