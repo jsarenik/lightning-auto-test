@@ -1,7 +1,7 @@
 # included from run*.sh
 
 PYTHON3=$(which python3)
-test -r /usr/local/include/secp256k1.h || /usr/include/secp256k1.h \
+test -r /usr/local/include/secp256k1.h || test -r /usr/include/secp256k1.h \
   || { echo "Secp256k1 not found!"; exit 1; }
 
 VENV=../virtualenv
