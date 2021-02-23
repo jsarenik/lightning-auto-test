@@ -1,3 +1,5 @@
+#!/bin/sh -e
+
 cd ~/src/lightning
 git checkout master
 git submodule deinit --all --force
