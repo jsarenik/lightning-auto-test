@@ -8,6 +8,7 @@ git tag -l | xargs git tag -d && git fetch -t
 git pull
 git submodule init
 git submodule update
+git submodule sync --recursive
 ./configure
 make -j4
 make PREFIX=$HOME/lightning-my install
