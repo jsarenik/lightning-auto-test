@@ -16,14 +16,41 @@ test -r $VENV/venv-installation-part1 || {
 set +x
 . $VENV/bin/activate
 set -x
+NOWDIR=$PWD
+installpip() {
+	cd contrib/$1
+	test -f requirements.txt && pip install -r requirements.txt
+	pip install .
+	cd $NOWDIR
+}
 test -r $VENV/venv-installation-part2 || {
 	pip install --upgrade pip
-	test -r tests/requirements.txt \
-	  && pip install -r tests/requirements.txt \
-	  || pip install -r requirements.txt
-	pip install --upgrade pip
+	pip install -r requirements.lock
+#	pip install --use-feature=in-tree-build \
+#		./contrib/pyln-client \
+#		./contrib/pyln-proto \
+#		./contrib/pyln-testing
+	installpip pyln-client
+	installpip pyln-proto
+	installpip pyln-testing
+	#installpip pyln-spec/bolt1
+	#installpip pyln-spec/bolt2
+	#installpip pyln-spec/bolt4
+	#installpip pyln-spec/bolt7
+	pip3 install \
+		blinker \
+		flake8 \
+		flaky \
+		mako \
+		pytest-sentry \
+		pytest-test-groups==1.0.3 \
+		pytest-custom-exit-code==0.3.0 \
+		pytest-timeout \
+		pytest-json-report
 
-	pip install base58 mrkd bitstring secp256k1 cryptography coincurve
-	pip install mako
+#	test -r tests/requirements.txt \
+#	  && pip install -r tests/requirements.txt \
+#	  || pip install -r requirements.txt
+
 	touch $VENV/venv-installation-part2
 }
