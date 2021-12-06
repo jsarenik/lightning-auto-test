@@ -6,7 +6,7 @@ type sudo tar wget
 # see https://alpinelinux.org/downloads/ for more architectures,
 # the rest are scripts and should work on all architectures
 AMAC=x86_64
-AVER=3.9.0
+AVER=3.15.0
 AURL="http://dl-cdn.alpinelinux.org/alpine/v${AVER%.*}/releases"
 CHSYS="https://raw.githubusercontent.com/jsarenik/dotfiles/master/bin/chsys"
 ALPINE="$AURL/$AMAC/alpine-minirootfs-$AVER-$AMAC.tar.gz"
