@@ -11,7 +11,7 @@ AURL="http://dl-cdn.alpinelinux.org/alpine/v${AVER%.*}/releases"
 CHSYS="https://raw.githubusercontent.com/jsarenik/dotfiles/master/bin/chsys"
 ALPINE="$AURL/$AMAC/alpine-minirootfs-$AVER-$AMAC.tar.gz"
 
-MYCH=$HOME/chsys
+MYCH=/workspace/chsys
 cd $MYCH || {
 	mkdir -p $MYCH/var/tmp/
 	cd $MYCH
