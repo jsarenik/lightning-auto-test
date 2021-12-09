@@ -11,7 +11,7 @@ AURL="http://dl-cdn.alpinelinux.org/alpine/v${AVER%.*}/releases"
 CHSYS="https://raw.githubusercontent.com/jsarenik/dotfiles/master/bin/chsys"
 ALPINE="$AURL/$AMAC/alpine-minirootfs-$AVER-$AMAC.tar.gz"
 
-MYCH=$HOME/chsys
+MYCH=/workspace/chsys
 cd $MYCH || {
 	mkdir -p $MYCH/var/tmp/
 	cd $MYCH
@@ -29,13 +29,29 @@ cd $MYCH || {
 cat >$MYCH/alpine/var/tmp/script <<EOF
 apk update
 apk upgrade
-apk add git bitcoin bitcoin-cli libtool autoconf automake build-base python3-dev gmp-dev sqlite-dev zlib-dev cppcheck
-#apk add db-c++ db boost db-dev boost-dev libressl-dev libevent-dev
+apk add git libtool autoconf automake \
+  file g++ make libc-dev patch \
+  python3-dev gmp-dev sqlite-dev zlib-dev cppcheck \
+  py3-pip gettext libpq-dev libsecp256k1-dev libffi-dev jq
+pip install mako mrkd mistune==0.8.4 coincurve
+apk add db-c++ db boost db-dev boost-dev libressl-dev libevent-dev
+apk add py3-pyrsistent
 cat > /usr/local/bin/shellcheck <<-EOOOF
 	#!/bin/sh
 	true
 	EOOOF
 chmod a+x /usr/local/bin/shellcheck
+export CFLAGS="-pipe -s -march=native -mtune=native -O3"
+export LDFLAGS="-s -no-pie"
+git clone -b 22.x https://github.com/bitcoin/bitcoin
+cd bitcoin
+./autogen.sh
+./configure \
+  --with-incompatible-bdb \
+  --without-gui \
+  --disable-zmq
+make -j2 install
+cd ..
 git clone https://github.com/jsarenik/lightning-auto-test
 cd lightning-auto-test
 export DEVELOPER=1

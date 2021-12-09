@@ -78,7 +78,8 @@ export DEVELOPER=${DEVELOPER:-1}
 export VALGRIND=${VALGRIND:-0}
 ./configure
 NUMCORES=$(nproc || grep -c ^processor /proc/cpuinfo)
-time -p make -j$NUMCORES
+#time -p make -j$((NUMCORES/4))
+time -p make -j4
 bitcoind --version
 pip3 freeze --local
 time -p make TIMEOUT=120 check
